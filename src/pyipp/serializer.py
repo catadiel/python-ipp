@@ -62,6 +62,17 @@ def construct_attribute(name: str, value: Any, tag: IppTag | None = None) -> byt
 
 
 def encode_collection(name: str, collection: dict[str, Any]) -> bytes:
+    """Encode a dict representing an IPP collection as a byte string.
+
+    Args:
+    ----
+        name (str): The name of the collection
+        collection (dict[str, Any]): The collection contents
+
+    Returns:
+    -------
+        bytes: A binary string representing the collection
+    """
     byte_str = b""
 
     byte_str += struct.pack(">b", IppTag.BEGIN_COLLECTION.value)
@@ -69,14 +80,14 @@ def encode_collection(name: str, collection: dict[str, Any]) -> bytes:
     byte_str += name.encode("utf-8")
     byte_str += struct.pack(">h", 0)
 
-    for name, value in collection.items():
+    for member_name, value in collection.items():
         if isinstance(value, dict):
-            byte_str += encode_collection(name=name, collection=value)
+            byte_str += encode_collection(name=member_name, collection=value)
         else:
             byte_str += struct.pack(">b", IppTag.MEMBER_NAME.value)
             byte_str += struct.pack(">h", 0)
-            byte_str += struct.pack(">h", len(name))
-            byte_str += name.encode("utf-8")
+            byte_str += struct.pack(">h", len(member_name))
+            byte_str += member_name.encode("utf-8")
             if isinstance(value, int):
                 byte_str += struct.pack(">b", IppTag.INTEGER.value)
                 byte_str += struct.pack(">h", 0)

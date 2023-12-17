@@ -9,7 +9,8 @@ from pyipp.enums import IppOperation
 
 
 async def main() -> None:
-    """Show example of executing operation against your IPP print server."""
+    """Print a PDF document with media from tray-2."""
+
     pdf_file = "/path/to/pdf.pdf"
     async with aiofiles.open(pdf_file, mode="rb") as file:
         content = await file.read()
@@ -22,6 +23,11 @@ async def main() -> None:
                     "requesting-user-name": "Me",
                     "job-name": "My Test Job",
                     "document-format": "application/pdf",
+                },
+                "job-attributes-tag": {
+                    "media-col": {
+                        "media-source": "tray-2",
+                    },
                 },
                 "data": content,
             },
