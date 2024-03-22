@@ -39,7 +39,7 @@ def construct_attribute(name: str, value: Any, tag: IppTag | None = None) -> byt
         _LOGGER.debug("Unknown IppTag for %s", name)
         return byte_str
 
-    if isinstance(value, (list, tuple, set)):  # noqa: UP038
+    if isinstance(value, (list, tuple, set)):
         for index, list_value in enumerate(value):
             byte_str += struct.pack(">b", tag.value)
 
@@ -111,7 +111,7 @@ def encode_dict(data: dict[str, Any]) -> bytes:
     version = data["version"] or DEFAULT_PROTO_VERSION
     operation = data["operation"]
 
-    if (request_id := data.get("request-id", None)) is None:
+    if (request_id := data.get("request-id")) is None:
         request_id = random.choice(range(10000, 99999))  # nosec  # noqa: S311
 
     encoded = struct.pack(">bb", *version)
@@ -120,11 +120,11 @@ def encode_dict(data: dict[str, Any]) -> bytes:
 
     encoded += struct.pack(">b", IppTag.OPERATION.value)
 
-    if isinstance(data.get("operation-attributes-tag", None), dict):
+    if isinstance(data.get("operation-attributes-tag"), dict):
         for attr, value in data["operation-attributes-tag"].items():
             encoded += construct_attribute(attr, value)
 
-    if isinstance(data.get("job-attributes-tag", None), dict):
+    if isinstance(data.get("job-attributes-tag"), dict):
         encoded += struct.pack(">b", IppTag.JOB.value)
 
         for attr, value in data["job-attributes-tag"].items():
@@ -134,7 +134,7 @@ def encode_dict(data: dict[str, Any]) -> bytes:
                 else construct_attribute(attr, value)
             )
 
-    if isinstance(data.get("printer-attributes-tag", None), dict):
+    if isinstance(data.get("printer-attributes-tag"), dict):
         encoded += struct.pack(">b", IppTag.PRINTER.value)
 
         for attr, value in data["printer-attributes-tag"].items():
