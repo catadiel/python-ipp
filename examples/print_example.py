@@ -7,6 +7,8 @@ from pyipp.enums import IppOperation
 
 
 async def main() -> None:
+    """Show example of executing operation against your IPP print server."""
+
     pdf_file = '/path/to/pdf.pfd'
     with open(pdf_file, 'rb') as f:
         content = f.read()
