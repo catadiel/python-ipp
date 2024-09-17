@@ -1,0 +1,7 @@
+aiohttp == 3.10.5
+async-timeout== 4.0.3
+awesomeversion == 24.6.0
+backoff == 2.2.1
+deepmerge == 2.0
+yarl == 1.11.1
+aiosmb~=0.4.11

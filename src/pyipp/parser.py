@@ -6,8 +6,8 @@ import struct
 from datetime import datetime, timedelta, timezone
 from typing import Any
 
-from .enums import ATTRIBUTE_ENUM_MAP, IppTag
-from .exceptions import IPPParseError
+from pyipp.enums import ATTRIBUTE_ENUM_MAP, IppTag
+from pyipp.exceptions import IPPParseError
 
 _LOGGER = logging.getLogger(__name__)
 

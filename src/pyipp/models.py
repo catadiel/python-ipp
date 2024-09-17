@@ -7,7 +7,7 @@ from typing import Any
 
 from yarl import URL
 
-from .parser import parse_ieee1284_device_id, parse_make_and_model
+from pyipp.parser import parse_ieee1284_device_id, parse_make_and_model
 
 PRINTER_STATES = {3: "idle", 4: "printing", 5: "stopped"}
 

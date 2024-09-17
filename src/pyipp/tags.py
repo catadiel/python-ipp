@@ -1,5 +1,5 @@
 """Attribute Tags for IPP."""
-from .enums import IppTag
+from pyipp.enums import IppTag
 
 ATTRIBUTE_TAG_MAP = {
     "attributes-charset": IppTag.CHARSET,
@@ -67,4 +67,10 @@ ATTRIBUTE_TAG_MAP = {
     "media-left-margin": IppTag.INTEGER,
     "media-source": IppTag.KEYWORD,
     "media-type": IppTag.KEYWORD,
+    "sides": IppTag.KEYWORD,
+    "print-scaling": IppTag.KEYWORD,
+    "print-color-mode": IppTag.KEYWORD,
+    "output-bin": IppTag.KEYWORD,
+    "multiple-document-handling": IppTag.KEYWORD,
+    "page-range": IppTag.RANGE,
 }

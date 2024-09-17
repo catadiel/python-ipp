@@ -6,9 +6,9 @@ import random
 import struct
 from typing import Any
 
-from .const import DEFAULT_PROTO_VERSION
-from .enums import IppTag
-from .tags import ATTRIBUTE_TAG_MAP
+from pyipp.const import DEFAULT_PROTO_VERSION
+from pyipp.enums import IppTag
+from pyipp.tags import ATTRIBUTE_TAG_MAP
 
 _LOGGER = logging.getLogger(__name__)
 

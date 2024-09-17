@@ -12,10 +12,10 @@ async def main() -> None:
     async with IPP("ipp://10.1.48.48/ipp/print") as ipp: #bay3
    # async with IPP("ipp://127.0.0.1:631/printers/Corvina") as ipp: #corvinaoffice
         response = await ipp.execute(
-            IppOperation.GET_PRINTER_ATTRIBUTES,
+            IppOperation.GET_JOB_ATTRIBUTES,
             {
                 "version": (2, 0),  # try (1, 1) for older devices
-                "operation-attributes-tag": {
+                "job-attributes-tag": {
                     "requested-attributes": [
                         # "printer-device-id",
                         # "printer-name",
@@ -28,7 +28,7 @@ async def main() -> None:
                         # "printer-state-reason",
                         # "printer-supply",
                         # "printer-up-time",
-                        #  "printer-uri-supported",
+                         "printer-uri-supported",
                         # "device-uri",
                         # "printer-is-shared",
                         # "printer-more-info",
@@ -43,16 +43,11 @@ async def main() -> None:
                         # "sides-supported",
                         # "print-scaling-supported",
                         # "print-color-mode-supported",
-                          "media-col-supported",
+                        # "media-col-supported",
                         # "media-size-supported",
                         # "media-format-supported",
-                         "media-supported",
-                        # "operations-supported",
-                        #  "job-creation-attributes-supported",
-                        # "media-type-supported",
-                        # "media-auto-dimension-supported",
-                        "page-ranges-supported",
-
+                        "media-supported",
+                        "operations-supported",
                     ],
                 },
             },

@@ -1,5 +1,5 @@
 """Asynchronous Python client for IPP."""
-from .exceptions import (
+from pyipp.exceptions import (
     IPPConnectionError,
     IPPConnectionUpgradeRequired,
     IPPError,
@@ -7,8 +7,8 @@ from .exceptions import (
     IPPResponseError,
     IPPVersionNotSupportedError,
 )
-from .ipp import IPP
-from .models import (
+from pyipp.ipp import IPP
+from pyipp.models import (
     Info,
     Marker,
     Printer,

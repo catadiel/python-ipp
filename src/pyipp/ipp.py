@@ -13,14 +13,14 @@ import aiohttp
 from deepmerge import always_merger
 from yarl import URL
 
-from .const import (
+from pyipp.const import (
     DEFAULT_CHARSET,
     DEFAULT_CHARSET_LANGUAGE,
     DEFAULT_PRINTER_ATTRIBUTES,
     DEFAULT_PROTO_VERSION,
 )
-from .enums import IppOperation, IppStatus
-from .exceptions import (
+from pyipp.enums import IppOperation, IppStatus
+from pyipp.exceptions import (
     IPPConnectionError,
     IPPConnectionUpgradeRequired,
     IPPError,
@@ -28,9 +28,9 @@ from .exceptions import (
     IPPResponseError,
     IPPVersionNotSupportedError,
 )
-from .models import Printer
-from .parser import parse as parse_response
-from .serializer import encode_dict
+from pyipp.models import Printer
+from pyipp.parser import parse as parse_response
+from pyipp.serializer import encode_dict
 
 if TYPE_CHECKING:
     from collections.abc import Mapping
@@ -40,7 +40,7 @@ if sys.version_info >= (3, 11):
 else:
     from async_timeout import timeout
 
-VERSION = metadata.version(__package__)
+VERSION = 'salacchia'   # metadata.version(__package__)
 
 @dataclass
 class IPP:

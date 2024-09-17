@@ -7,17 +7,15 @@ from pyipp import IPP
 
 async def main() -> None:
     """Show example of connecting to your IPP print server."""
-    async with IPP("ipps://EPSON761251.local:631/ipp/print") as ipp:
+    async with IPP("ipp://10.1.48.48/ipp/print") as ipp:
+
+    #async with IPP("ipp://127.0.0.1:631/printers/manualetti-packaging2") as ipp:
         # Get Printer Info
         printer = await ipp.printer()
         print(printer)
 
-    async with IPP("ipp://hp6830.local:631/ipp/print") as ipp:
-        # Get Printer Info
-        printer = await ipp.printer()
-        print(printer)
 
 
 if __name__ == "__main__":
-    loop = asyncio.get_event_loop()
+    loop = asyncio.new_event_loop()
     loop.run_until_complete(main())
