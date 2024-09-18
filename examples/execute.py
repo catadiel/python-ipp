@@ -8,8 +8,9 @@ from pyipp.enums import IppOperation
 
 async def main() -> None:
     """Show example of executing operation against your IPP print server."""
-   #async with IPP("ipp://127.0.0.1:631/ipp/print") as ipp: #cups
-    async with IPP("ipp://10.1.48.48/ipp/print") as ipp: #bay3
+    async with IPP("ipp://192.168.26.254/ipp/print") as ipp:  # brother
+   # async with IPP("ipp://127.0.0.1:631/ipp/print") as ipp: #cups
+   # async with IPP("ipp://10.1.48.48/ipp/print") as ipp: #bay3
    # async with IPP("ipp://127.0.0.1:631/printers/Corvina") as ipp: #corvinaoffice
         response = await ipp.execute(
             IppOperation.GET_PRINTER_ATTRIBUTES,

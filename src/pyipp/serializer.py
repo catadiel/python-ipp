@@ -80,24 +80,12 @@ def encode_collection(name: str, collection: dict[str, Any]) -> bytes:
     byte_str += name.encode("utf-8")
     byte_str += struct.pack(">h", 0)
 
-    for member_name, value in collection.items():
-        if isinstance(value, dict):
-            byte_str += encode_collection(name=member_name, collection=value)
-        else:
-            byte_str += struct.pack(">b", IppTag.MEMBER_NAME.value)
-            byte_str += struct.pack(">h", 0)
-            byte_str += struct.pack(">h", len(member_name))
-            byte_str += member_name.encode("utf-8")
-            if isinstance(value, int):
-                byte_str += struct.pack(">b", IppTag.INTEGER.value)
-                byte_str += struct.pack(">h", 0)
-                byte_str += struct.pack(">h", 4)
-                byte_str += struct.pack(">h", value)
-            else:
-                byte_str += struct.pack(">b", IppTag.KEYWORD.value)
-                byte_str += struct.pack(">h", 0)
-                byte_str += struct.pack(">h", len(value))
-                byte_str += value.encode("utf-8")
+    for attr, value in collection.items():
+        byte_str += (
+            encode_collection(attr, value)
+            if isinstance(value, dict)
+            else construct_attribute(attr, value)
+        )
 
     byte_str += struct.pack(">b", IppTag.END_COLLECTION.value)
     byte_str += struct.pack(">h", 0)
@@ -127,12 +115,20 @@ def encode_dict(data: dict[str, Any]) -> bytes:
     if isinstance(data.get("job-attributes-tag"), dict):
         encoded += struct.pack(">b", IppTag.JOB.value)
 
+        # for attr, value in data["job-attributes-tag"].items():
+        #     encoded += (
+        #         encode_collection(attr, value)
+        #         if isinstance(value, dict)
+        #         else construct_attribute(attr, value)
+        #     )
         for attr, value in data["job-attributes-tag"].items():
-            encoded += (
-                encode_collection(attr, value)
-                if isinstance(value, dict)
-                else construct_attribute(attr, value)
-            )
+            if isinstance(value, dict):
+                bytes = encode_collection(attr, value)
+                ecoded2=  encoded + bytes
+
+            else:
+                bytes = construct_attribute(attr, value)
+                encoded += bytes
 
     if isinstance(data.get("printer-attributes-tag"), dict):
         encoded += struct.pack(">b", IppTag.PRINTER.value)

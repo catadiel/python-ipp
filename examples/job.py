@@ -8,27 +8,28 @@ from pyipp.enums import IppOperation
 
 async def main() -> None:
     """Show example of connecting to your IPP print server."""
-    async with IPP("ipp://10.1.48.48/ipp/print") as ipp:
+    async with IPP("ipp://192.168.26.254/ipp/print") as ipp:  # brother
+    # async with IPP("ipp://10.1.48.48/ipp/print") as ipp:
 
     # async with IPP("ipp://127.0.0.1:631/printers/manualetti-packaging2") as ipp:
     #     Get Printer Info
-    #     job = await ipp.execute(IppOperation.GET_JOBS, {
-    #         "version": (2, 0),
-    #         },
-    #     )
-    #     print(job)
-        printer = await ipp.execute(IppOperation.GET_JOB_ATTRIBUTES,{
-                "version": (2, 0),
-                "job-attributes-tag": {
-                    "job-id": 14,
-                    #
-                    # "requested-attributes": [
-                    # ]
-                }
+        job = await ipp.execute(IppOperation.GET_JOBS, {
+            "version": (2, 0),
             },
         )
+        print(job)
+        # printer = await ipp.execute(IppOperation.GET_JOB_ATTRIBUTES,{
+        #         "version": (2, 0),
+        #         "job-attributes-tag": {
+        #             "job-id": 14,
+        #             #
+        #             # "requested-attributes": [
+        #             # ]
+        #         }
+        #     },
+        # )
         #
-        print(printer)
+        # print(printer)
 
 
 

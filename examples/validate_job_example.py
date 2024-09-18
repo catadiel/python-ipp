@@ -46,23 +46,24 @@ async def main() -> None:
 
     # content = await GetPDF("MANESMARTxxBY001_IT.pdf")
     async with IPP("ipp://192.168.26.254/ipp/print") as ipp:  # brother
-    #async with IPP("ipp://10.1.89.10:631/ipp/print") as ipp: #corvina
-    #async with IPP("ipp://127.0.0.1:631/printers/Corvina") as ipp: #corvinaCUPS
+    # async with IPP("ipp://10.1.89.10:631/ipp/print") as ipp: #corvina
+    # async with IPP("ipp://127.0.0.1:631/printers/Corvina") as ipp: #corvinaCUPS
     # async with IPP("ipp://10.1.48.48/ipp/print") as ipp: #bay3
     # async with IPP("ipp://127.0.0.1:631/printers/manualetti-packaging2") as ipp: #bay3CUPS
+
         response = await ipp.execute(
-            IppOperation.PRINT_JOB,
-            {
+            IppOperation.VALIDATE_JOB,
+                {
                 "operation-attributes-tag": {
-                    "requesting-user-name": "CupsCarlo",
-                    "job-name": "Manualetto2",
+                     "requesting-user-name": "CupsCarlo",
+                    # "job-name": "Manualetto2",
                     #"document-format": "application/pdf",
-                },
+                    },
                 "job-attributes-tag": {
                     # "job-k-octets": 4324,
-                     "sides": "two-sided-long-edge",
-                    # "print-color-mode": "monochrome",
-                    "print-scaling": "fit",
+                    #  "sides": "two-sided-long-edge",
+                    # # "print-color-mode": "monochrome",
+                    # "print-scaling": "fit",
                     # "page-range": (1, 4),
                     # "orientation-requested": IppOrientationRequested.PORTRAIT,
                     # 'print-quality': IppPrintQuality.NORMAL,
@@ -71,16 +72,17 @@ async def main() -> None:
                     # # "media-type": "stationery",
                     # "output-bin": "face-down",
                     # "multiple-document-handling": "separate-documents-collated-copies",
-                    # "media-col": {
-                    #     "media-source": "auto",
-                    #     "media-type": "stationery",
-                    #
-                    #     'media-size': {'x-dimension': 21000, 'y-dimension': 29700},
-                    # },
+                    "media-col": {
+                        "media-color":  "blue",
+                        "media-size": {
+                            "x-dimension" : 6,
+                            "y-dimension" : 4,
+                        },
+                    },
+                # "data": content,
                 },
-                "data": content,
-            },
-        )
+                },
+            )
 
         print(response)
 
