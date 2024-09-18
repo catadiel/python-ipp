@@ -1,6 +1,7 @@
 # pylint: disable=W0621
 """Asynchronous Python client for IPP."""
 import asyncio
+import logging
 from pathlib import Path
 import aiofiles
 
@@ -10,6 +11,13 @@ import aiofiles
 from pyipp import IPP
 from pyipp.enums import IppOperation, IppTag, IppOrientationRequested, IppPrintQuality
 from aiosmb.commons.connection.factory import SMBConnectionFactory
+
+logging.basicConfig(
+    format="%(asctime)s [%(levelname)-5s] [%(name)s.%(funcName)s] %(message)s",
+    level=logging.DEBUG,
+)
+logging.getLogger('root').setLevel(logging.DEBUG)
+
 
 
 async def GetPDF(filename) -> bytes:
@@ -35,14 +43,14 @@ async def GetPDF(filename) -> bytes:
 
 async def main() -> None:
     """Show example of executing operation against your IPP print server."""
-    #data_folder = Path("C:/Users/carlo.tadiello/OneDrive - EXOR INTERNATIONAL SPA/Documents/")
+    # data_folder = Path("C:/Users/carlo.tadiello/OneDrive - EXOR INTERNATIONAL SPA/Documents/")
+    #
+    #
+    # pdf_file = data_folder / "A5_digitalization+maps.pdf"
 
-
-    #pdf_file = data_folder / "A5_digitalization+maps.pdf"
-
-    pdf_file = "/Users/carlo/Downloads/42409022525.pdf"
-    async with aiofiles.open(pdf_file, mode="rb") as file:
-        content = await file.read()
+    # pdf_file = "/Users/carlo/Downloads/42409022525.pdf"
+    # async with aiofiles.open(pdf_file, mode="rb") as file:
+    #     content = await file.read()
 
     # content = await GetPDF("MANESMARTxxBY001_IT.pdf")
     async with IPP("ipp://192.168.26.254/ipp/print") as ipp:  # brother
@@ -73,11 +81,12 @@ async def main() -> None:
                     # "output-bin": "face-down",
                     # "multiple-document-handling": "separate-documents-collated-copies",
                     "media-col": {
-                        "media-color":  "blue",
+                        # "media-color": "blue",
                         "media-size": {
                             "x-dimension" : 6,
                             "y-dimension" : 4,
                         },
+                        "media-type": "stationary",
                     },
                 # "data": content,
                 },

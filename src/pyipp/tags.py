@@ -73,4 +73,5 @@ ATTRIBUTE_TAG_MAP = {
     "output-bin": IppTag.KEYWORD,
     "multiple-document-handling": IppTag.KEYWORD,
     "page-range": IppTag.RANGE,
+    "media-color": IppTag.KEYWORD,
 }
